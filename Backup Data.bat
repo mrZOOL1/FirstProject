@@ -1,6 +1,7 @@
 @echo off
 
-start ""
-cmd /k "echo I have access to your computer, send money to my bitcoin account or I will delete all your files & pause"
+set "message=I have access to your computer, send money to my bitcoin wallet or I will delete all your files"
+
+start "" cmd /k "echo %message% & pause"
 
 exit /b 0
