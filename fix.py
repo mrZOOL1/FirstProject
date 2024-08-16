@@ -1,59 +1,23 @@
 import os
 
-def capitalize_filename(filename):
-    """
-    Capitalize the filename if it is not already capitalized.
-    - Only works for filenames with a single word (no spaces, dashes, or underscores).
-    """
-    # Split the filename into name and extension
-    name, ext = os.path.splitext(filename)
+def create_lorem_txt(file_path):
     
-    if ext.lower() == '.txt':
-        # Capitalize the filename if needed
-        capitalized_name = name.capitalize()
-        
-        # Add the extension back
-        new_filename = capitalized_name + ext
-        
-        return new_filename
-    return filename
+    lorem_text = """Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
 
-def fix_filenames_in_directory(directory):
-    """
-    Fix the capitalization of .txt files in the specified directory.
-    """
-    files_fixed = False
-    for filename in os.listdir(directory):
-        new_filename = capitalize_filename(filename)
-        
-        if new_filename != filename:
-            old_path = os.path.join(directory, filename)
-            new_path = os.path.join(directory, new_filename)
-            
-            # Rename the file
-            os.rename(old_path, new_path)
-            files_fixed = True
-    
-    return files_fixed
+    # Ensure the directory exists
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
-def find_desktop_path():
-    """
-    Try to find the Desktop directory path, including paths like OneDrive.
-    """
-    # Check common locations
-    possible_paths = [
-        os.path.join(os.path.expanduser("~"), "Desktop"),  # Default path
-        os.path.join(os.path.expanduser("~"), "OneDrive", "Рабочий стол", "שולחן עבודה", "עבודה שולחן")  # OneDrive path
-    ]
-    
-    for path in possible_paths:
-        if os.path.isdir(path):
-            return path
-    raise FileNotFoundError("Desktop path not found.")
+    # Write the Lorem Ipsum text to the file
+    with open(file_path, 'w') as file:
+        file.write(lorem_text)
 
 if __name__ == "__main__":
-    # Automatically find the path to the Desktop directory
-    desktop_path = find_desktop_path()
+    # Define the path to save the file
+    file_path = r'C:\Temp\openme.txt'
     
-    # Check and fix filenames in the Desktop directory
-    fix_filenames_in_directory(desktop_path)
+    # Create the .txt file with Lorem Ipsum text
+    create_lorem_txt(file_path)
