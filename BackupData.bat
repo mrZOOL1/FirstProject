@@ -4,3 +4,5 @@ set "message=I have access to your computer, send money to my bitcoin wallet or 
 
 echo %message%
 pause
+
+exit /b 0
